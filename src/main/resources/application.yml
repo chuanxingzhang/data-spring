@@ -1,0 +1,46 @@
+logging:
+    level:
+        com.ws.shavuot: DEBUG
+#定时任务
+batch:
+  LawFirmContract: #合同状态
+    cron: 59 55 9 * * ? #0/10 * * * * ?  每10秒执行一次
+spring:
+    jackson.serialization.INDENT_OUTPUT: true
+    profiles.active: dev
+
+---
+spring:
+    profiles: dev
+
+    datasource:
+          name: shavout
+          url: jdbc:mysql://192.168.25.71:3306/zcx?characterEncoding=UTF-8
+          username: root
+          password: dMHYyWPe1gFJ5pLw
+          # 使用druid数据源
+          initialSize: 1
+          minIdle: 1
+          maxActive: 20
+          maxWait: 60000
+          timeBetweenEvictionRunsMillis: 60000
+          minEvictableIdleTimeMillis: 300000
+          validationQuery: select 'x'
+          testWhileIdle: true
+          testOnBorrow: false
+          testOnReturn: false
+          poolPreparedStatements: true
+          maxOpenPreparedStatements: 20
+          filters: stat,wall,config
+          removeAbandoned: true
+          removeAbandonedTimeout: 180
+          logAbandoned: true
+          # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+          connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000;
+          # 合并多个DruidDataSource的监控数据
+          useGlobalDataSourceStat: true
+    redis:
+          host: 192.168.25.158
+          password: wusong@123
+          port: 6379
+name: MS
